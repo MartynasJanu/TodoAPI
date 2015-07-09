@@ -43,40 +43,10 @@ class TaskList
         }
         
         $xml = simplexml_load_string('<tasks></tasks>');
-        $i = 0;
         foreach ($this->tasks as $task) {
-            $task->outputXML($xml, $base_uri);
-            /*
-            // add data
-            $xml->addChild('task');
-            $xml->task[$i]->addChild('id', $task->id);
-            $xml->task[$i]->addChild('description', $task->description);
-            $xml->task[$i]->addChild('progress', $task->progress);
-            
-            // add links
-            $link_idx = 0;
-            // view link
-            $xml->task[$i]->addChild('link');
-            $xml->task[$i]->link[$link_idx]->addAttribute('rel', 'get');
-            $xml->task[$i]->link[$link_idx]->addAttribute('href', $base_uri.'/api/v1/task/'.$task->id);
-            // delete link
-            ++$link_idx;
-            $xml->task[$i]->addChild('link');
-            $xml->task[$i]->link[$link_idx]->addAttribute('rel', 'delete');
-            $xml->task[$i]->link[$link_idx]->addAttribute('href', $base_uri.'/api/v1/task/'.$task->id);
-            // edit (put) link
-            ++$link_idx;
-            $xml->task[$i]->addChild('link');
-            $xml->task[$i]->link[$link_idx]->addAttribute('rel', 'put');
-            $xml->task[$i]->link[$link_idx]->addAttribute('href', $base_uri.'/api/v1/task/'.$task->id);
-            */
-            ++$i;
+            $xml = $task->outputXML($xml, $base_uri);
         }
         
         return $xml->asXML();
-    }
-    
-    private function outputPaging() {
-        
     }
 }

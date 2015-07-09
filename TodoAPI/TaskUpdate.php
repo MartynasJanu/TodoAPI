@@ -12,6 +12,10 @@ class TaskUpdate
         $this->db = $db;
     }
     
+    public function getTask() {
+        return $this->task;
+    }
+    
     public function loadFromDB($id) {
         $task = $this->db->getTaskById($id);
         

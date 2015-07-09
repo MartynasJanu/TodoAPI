@@ -3,7 +3,7 @@
 namespace TodoAPI;
 
 class Controller {
-    public function taskListAction(&$app) {
+    public function taskListAction(&$app, $db = null) {
         $taskList = TaskListFactory::build();
         $base_uri = $app->request->getRootUri();
         
@@ -12,7 +12,7 @@ class Controller {
             $app->response->status(500);
         } else {
             $app->response->status(200);
-            echo '<xmp>'.$taskList->outputXML($base_uri);
+            echo $taskList->outputXML($base_uri);
         }
     }
     

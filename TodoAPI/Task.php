@@ -38,34 +38,39 @@ class Task
         // create new root node
         if ($xml == null) {
             $xml = simplexml_load_string('<task></task>');
+            $child = $xml;
         } else {
-            $return_string = true;   
+            $return_string = false;
+            $xml->addChild('task');
+            $child = $xml->task[count($xml->task)-1];
         }
         
         // add data nodes
-        $xml->addChild('id', $this->id);
-        $xml->addChild('description', $this->description);
-        $xml->addChild('progress', $this->progress);
+        $child->addChild('id', $this->id);
+        $child->addChild('description', $this->description);
+        $child->addChild('progress', $this->progress);
         
         // add links
         $link_idx = 0;
         // view link
-        $xml->addChild('link');
-        $xml->link[$link_idx]->addAttribute('rel', 'get');
-        $xml->link[$link_idx]->addAttribute('href', $base_uri.'/api/v1/task/'.$this->id);
+        $child->addChild('link');
+        $child->link[$link_idx]['rel'] = 'get';
+        $child->link[$link_idx]['href'] = $base_uri.'/api/v1/task/'.$this->id;
         // delete link
         ++$link_idx;
-        $xml->addChild('link');
-        $xml->link[$link_idx]->addAttribute('rel', 'delete');
-        $xml->link[$link_idx]->addAttribute('href', $base_uri.'/api/v1/task/'.$this->id);
+        $child->addChild('link');
+        $child->link[$link_idx]['rel'] = 'delete';
+        $child->link[$link_idx]['href'] = $base_uri.'/api/v1/task/'.$this->id;
         // edit (put) link
         ++$link_idx;
-        $xml->addChild('link');
-        $xml->link[$link_idx]->addAttribute('rel', 'put');
-        $xml->link[$link_idx]->addAttribute('href', $base_uri.'/api/v1/task/'.$this->id);
+        $child->addChild('link');
+        $child->link[$link_idx]['rel'] = 'put';
+        $child->link[$link_idx]['href'] = $base_uri.'/api/v1/task/'.$this->id;
         
         if ($return_string) {
             return $xml->asXML();
+        } else {
+            return $xml;
         }
     }
 }

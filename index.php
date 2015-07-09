@@ -12,7 +12,6 @@ require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
 use TodoAPI\Controller;
-use TodoAPI\Database;
 
 /**
  * Step 2: Instantiate a Slim application
@@ -23,12 +22,12 @@ use TodoAPI\Database;
  * of setting names and values into the application constructor.
  */
 $app = new \Slim\Slim();
-//$app->config('debug', false);
+$app->config('debug', false);
 
 // report 500 error on DB exceptions
-//$app->error(function (\PDOException $e) use ($app) {
-//    
-//});
+$app->error(function (\PDOException $e) use ($app) {
+    
+});
 
 /**
  * Step 3: Define the Slim application routes

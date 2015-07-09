@@ -6,6 +6,9 @@ class Database
 {
     private $conn = null;
     
+    public function setConnection($conn) {
+        $this->conn = $conn;
+    }
     private function getConnection() {
         // prevent reconnection
         if ($this->conn != null) {
@@ -38,9 +41,12 @@ class Database
         
         $statement->bindParam('description', $task->description);
         $statement->bindParam('progress', $task->progress);
-        $statement->execute();
         
-        return $this->conn->lastInsertId();
+        if ($statement->execute()) {
+            return $this->conn->lastInsertId();
+        } else {
+            return 0;
+        }
     }
     
     public function updateTask($task) {
@@ -68,9 +74,12 @@ class Database
         
         $sql = 'SELECT `id`, `description`, `progress` FROM `task`';
         $statement = $this->conn->prepare($sql);
-        $statement->execute();
         
-        return $statement->fetchAll();
+        if ($statement->execute()) {
+            return $statement->fetchAll();
+        } else {
+            return null;
+        }
     }
     
     public function getTaskById($id)
@@ -83,8 +92,11 @@ class Database
         $statement = $this->conn->prepare($sql);
         $statement->bindParam('id', $id);
        
-        $statement->execute();
-        $object = $statement->fetchObject();
+        if ($statement->execute()) {
+            $object = $statement->fetchObject();
+        } else {
+            return false;
+        }
         
         if ($object) {
             $task = new Task();
