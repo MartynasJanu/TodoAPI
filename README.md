@@ -17,17 +17,20 @@ DELETE /api/v1/task/:id         Deletes a task from the database with an id of :
 ### Data structures
 
 All data objects (tasks) for replies and request are made of the following example structure:
-    `<task>
+```xml
+    <task>
         <id>1</id>
         <description/>
         <progress>50</progress>
         <link rel="get" href="/api/v1/task/1"/>
         <link rel="delete" href="/api/v1/task/1"/>
         <link rel="put" href="/api/v1/task/1"/>
-    </task>`
+    </task>
+```
 
 Object collections:
-`<tasks>
+```xml
+<tasks>
     <task>
         <id>1</id>
         <description/>
@@ -44,4 +47,5 @@ Object collections:
         <link rel="delete" href="/api/v1/task/2"/>
         <link rel="put" href="/api/v1/task/2"/>
     </task>
-</tasks>`
+</tasks>
+```
