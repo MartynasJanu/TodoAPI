@@ -26,28 +26,30 @@ class Database
         }
     }
     
-    public function insert($task)
+    public function insertTask($task)
     {
-        if (file_exists('db')) {
-            $db = unserialize(file_get_contents('db'));
-        } else {
-            $db = array();
+       if (!$this->getConnection()) {
+            return 0;
         }
         
-        $array = json_decode(json_encode($task), true);
-        $array['id'] = count($db)+1;
-        $db[] = $array;
+        $sql = 'INSERT INTO `task` (`description`, `progress`)
+                VALUES (:description, :progress)';
+        $statement = $this->conn->prepare($sql);
         
-        file_put_contents('db', serialize($db));
+        $statement->bindParam('description', $task->description);
+        $statement->bindParam('progress', $task->progress);
+        $statement->execute();
         
-        return $array['id'];
+        return $this->conn->lastInsertId();
     }
     
     public function getTaskList()
     {
-        $this->getConnection();
+        if (!$this->getConnection()) {
+            return null;
+        }
         
-        $sql = 'SELECT id, description, progress FROM `task`';
+        $sql = 'SELECT `id`, `description`, `progress` FROM `task`';
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         

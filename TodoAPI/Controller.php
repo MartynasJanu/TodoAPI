@@ -54,4 +54,8 @@ class Controller {
             $app->response->status(500);
         }
     }
+    
+    public function taskUpdateAction(&$app, $xml) {
+        
+    }
 }

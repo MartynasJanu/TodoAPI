@@ -37,7 +37,7 @@ class TaskCreate
     
     public function save()
     {
-        $id = $db->insert($this->task);
+        $id = $this->db->insertTask($this->task);
         if ($id == 0) {
             return false;
         } else {
