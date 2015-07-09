@@ -85,4 +85,24 @@ class Controller {
             $app->response->status(500);
         }
     }
+    
+    public function taskDeleteAction(&$app, $id) {
+        $db = new Database();
+        $task = $db->getTaskById($id);
+        
+        if (!empty($task)) {
+            $deleted = $db->deleteTask($task->id);
+        }
+        
+        // error in connection
+        if ($task === false || $deleted === false) {
+            $app->response->status(500);
+        // not found
+        } elseif (empty($task)) {
+            $app->response->status(404);
+        // success
+        } else {
+            $app->response->status(204);
+        }
+    }
 }

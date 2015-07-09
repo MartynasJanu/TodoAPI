@@ -94,4 +94,16 @@ class Database
             return [];
         }
     }
+    
+    public function deleteTask($id) {
+        if (!$this->getConnection()) {
+            return false;
+        }
+        
+        $sql = 'DELETE FROM `task` WHERE `id` = :id';
+        $statement = $this->conn->prepare($sql);
+        $statement->bindParam('id', $id);
+        
+        return $statement->execute();
+    }
 }
