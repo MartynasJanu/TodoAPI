@@ -105,4 +105,28 @@ class Controller {
             $app->response->status(204);
         }
     }
+    
+    public function frontAction(&$app) {
+        echo '<!DOCTYPE html>';
+        echo '<html lang="en">';
+        echo '<body>';
+    
+        echo '<h1>To do list</h1>';
+        $db = new Database();
+        $list = $db->getTaskList();
+        
+        echo '<table border="1" style="width:100%;">';
+        echo '<tr><th>ID</th><th>task</th><th>progress</th></tr>';
+        foreach ($list as $item) {
+            echo '<tr>';
+            echo '<td>'.$item['id'].'</td>';
+            echo '<td>'.$item['description'].'</td>';
+            echo '<td>'.$item['progress'].' %</td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+        
+        echo '</body>';
+        echo '</html>';
+    }
 }
