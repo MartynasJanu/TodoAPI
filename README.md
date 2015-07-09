@@ -1,6 +1,6 @@
 # TodoAPI
 
-TodoAPI is a RESTful API built on PHP SlimFramework. GET, POST, PUT and DELETE verbs are used for communication and XML for data structure.
+TodoAPI is a RESTful API built on PHP SlimFramework. GET, POST, PUT and DELETE HTTP verbs are used for communication and XML for data structure.
 
 ## URI reference
 
