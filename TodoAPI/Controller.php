@@ -44,18 +44,45 @@ class Controller {
         
         // is object is not valid, return Bad Request
         if (!$created) {
-            $app->response->status(404);
+            $app->response->status(400);
         // save to database
         } elseif ($taskCreate->save()) {
             $app->response->status(201);
-            $app->response->headers->set('Location', $base_uri.'/task/'.$taskCreate->getInsertedId());
+            $location = $base_uri.'/task/'.$taskCreate->getInsertedId();
+            $app->response->headers->set('Location', $location);
         // if save failed, return 500
         } else {
             $app->response->status(500);
         }
     }
     
-    public function taskUpdateAction(&$app, $xml) {
+    public function taskUpdateAction(&$app, $id, $xml) {
+        $base_uri = $app->request->getRootUri();
+        $taskUpdate = TaskUpdateFactory::build();
+
+        // attemps to load an existing object and updates information from xml
+        // if failed to load from database, return Not Found
+        if (!$taskUpdate->loadFromDB($id)) {
+            $app->response->status(404);
+            return;
+        }
         
+        // update with new data
+        $updated = $taskUpdate->updateFromXML($xml);
+
+        // if object is not valid, return Bad Request
+        if (!$updated) {
+            $app->response->status(400);
+            
+        // save to database
+        } elseif ($taskUpdate->save()) {
+            $app->response->status(201);
+            $location = $base_uri.'/task/'.$id;
+            $app->response->headers->set('Location', $location);
+            
+        // if save failed, return 500
+        } else {
+            $app->response->status(500);
+        }
     }
 }

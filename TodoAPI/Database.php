@@ -28,7 +28,7 @@ class Database
     
     public function insertTask($task)
     {
-       if (!$this->getConnection()) {
+        if (!$this->getConnection()) {
             return 0;
         }
         
@@ -41,6 +41,23 @@ class Database
         $statement->execute();
         
         return $this->conn->lastInsertId();
+    }
+    
+    public function updateTask($task) {
+        if (!$this->getConnection()) {
+            return false;
+        }
+        
+        $sql = 'UPDATE `task` SET `description` = :description,
+                `progress` = :progress
+                WHERE `id` = :id';
+        $statement = $this->conn->prepare($sql);
+        
+        $statement->bindParam('id', $task->id);
+        $statement->bindParam('description', $task->description);
+        $statement->bindParam('progress', $task->progress);
+        
+        return $statement->execute();
     }
     
     public function getTaskList()
