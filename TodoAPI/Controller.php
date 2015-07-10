@@ -25,14 +25,12 @@ class Controller {
         // error in connection
         if ($task === false) {
             $app->response->status(500);
-            die('500');
         // not found
         } elseif (empty($task)) {
             $app->response->status(404);
-            die('404');
         } else {
             $app->response->status(200);
-            echo '<xmp>'.$task->outputXML(null, $base_uri);
+            echo $task->outputXML(null, $base_uri);
         }
     }
     
