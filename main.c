@@ -1,4 +1,5 @@
 #include <stdio>
+#include <string.h>
 
 void main() {
   cout << "Hello, world!\n";
@@ -7,9 +8,9 @@ void main() {
 }
 
 function double getSomeDouble() {
-	return 1.7;
+	return 11.1;
 }
 
 int getSomeInteger() {
-	return 9;
+	return 99;
 }
