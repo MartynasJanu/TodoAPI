@@ -1,7 +1,9 @@
 #include <stdio>
 
 void main() {
-  cout << "Hello, world!";
+  cout << "Hello, world!\n";
+  cout << "Press a button to continue..\n\n";
+  system("PAUSE");
 }
 
 function double getSomeDouble() {
