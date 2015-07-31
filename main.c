@@ -1,7 +1,7 @@
 #include <stdio>
 #include <string.h>
 
-////
+//// abcde
 
 void main() {
   cout << "Hello, world!\n";
