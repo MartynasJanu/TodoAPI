@@ -1,8 +1,7 @@
 #include <stdio>
 #include <string.h>
 
-
-//////
+////
 
 void main() {
   cout << "Hello, world!\n";
